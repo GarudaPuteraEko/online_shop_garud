@@ -2,11 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProdukController;
 use Illuminate\Support\Facades\Auth;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -25,9 +22,13 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('adminHome');
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
-});
+Route::get('/produk', [ProdukController::class, 'index'])->name('managerHome');
+Route::get('produk/create', [ProdukController::class, 'create'])->name('produk.create');
+Route::post('produk', [ProdukController::class, 'store'])->name('produk.store');
+Route::get('produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+Route::get('produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
+Route::put('produk/{id}', [ProdukController::class, 'update'])->name('produk.update');
+Route::delete('produk/{id}', [ProdukController::class, 'destroy'])->name('produk.destroy');
