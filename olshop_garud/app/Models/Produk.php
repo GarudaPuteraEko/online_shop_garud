@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-    public function produk() 
-    { 
-        return $this->belongsTo('Produk::class'); 
-    } 
-    // use HasFactory; 
+    use HasFactory;
+
     protected $fillable = ['kode_produk', 'nama', 'harga'];
+    
 }

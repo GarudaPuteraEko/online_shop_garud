@@ -24,5 +24,6 @@
 
         <button type="submit" class="btn btn-primary my-3">Simpan</button>
     </form>
+    <a href="{{ route('adminHome') }}" class="btn btn-secondary mt-3">← Kembali ke Halaman Utama</a>
 </div>
 @endsection

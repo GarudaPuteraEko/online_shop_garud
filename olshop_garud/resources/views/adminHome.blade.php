@@ -11,6 +11,10 @@
                     <a href="{{ route('produk.create') }}" class="btn btn-sm btn-primary">Tambah Produk</a>
                 </div>
 
+                <div class="my-1">
+                    <a href="{{ route('transaction.adminApproval') }}" class="btn btn-sm btn-success">Lihat Approval Transaksi</a>
+                </div>
+
                 <table class="table">
                     <thead>
                         <tr>
