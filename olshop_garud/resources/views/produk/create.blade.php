@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Tambah Produk</h2>
 
-    <form id="tambah-produk-form" action="{{ route('produk.store') }}" method="POST">
+    <form id="tambah-produk-form" action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
         <div class="form-group">
@@ -32,6 +32,11 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="gambar">Gambar Produk</label>
+            <input type="file" name="gambar" class="form-control" accept="image/*">
+        </div>
+
         <button type="submit" class="btn btn-primary my-3">Tambah</button>
     </form>
     
@@ -44,7 +49,7 @@
 <script>
     const form = document.getElementById('tambah-produk-form');
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Cegah submit langsung
+        e.preventDefault();
 
         Swal.fire({
             title: 'Tambah Produk?',
@@ -57,7 +62,7 @@
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                form.submit(); // Submit form jika dikonfirmasi
+                form.submit();
             }
         });
     });

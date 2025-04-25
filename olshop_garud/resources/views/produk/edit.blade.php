@@ -4,7 +4,7 @@
 <div class="container">
     <h2>Edit Produk</h2>
 
-    <form id="edit-produk-form" action="{{ route('produk.update', $produk->id) }}" method="POST">
+    <form id="edit-produk-form" action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -36,6 +36,18 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="gambar">Ganti Gambar Produk (Opsional)</label>
+            <input type="file" name="gambar" class="form-control" accept="image/*">
+        </div>
+
+        @if($produk->gambar)
+            <div class="form-group">
+                <label>Gambar Saat Ini:</label><br>
+                <img src="{{ asset('storage/gambar/' . $produk->gambar) }}" alt="Gambar Produk" style="max-width: 200px;" class="mb-3">
+            </div>
+        @endif
+
         <button type="submit" class="btn btn-primary my-3">Simpan</button>
     </form>
 
@@ -48,7 +60,7 @@
 <script>
     const form = document.getElementById('edit-produk-form');
     form.addEventListener('submit', function(e) {
-        e.preventDefault(); // Cegah submit langsung
+        e.preventDefault();
 
         Swal.fire({
             title: 'Simpan Perubahan?',
@@ -61,7 +73,7 @@
             cancelButtonText: 'Batal'
         }).then((result) => {
             if (result.isConfirmed) {
-                form.submit(); // Submit jika dikonfirmasi
+                form.submit();
             }
         });
     });

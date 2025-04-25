@@ -9,7 +9,7 @@ class Produk extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kode_produk', 'nama', 'harga', 'kategori_id'];
+    protected $fillable = ['kode_produk', 'nama', 'harga', 'kategori_id', 'gambar'];
 
     public function kategori()
     {
