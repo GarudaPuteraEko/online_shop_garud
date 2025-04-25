@@ -8,11 +8,11 @@
 <body>
     <h1>Detail Transaksi</h1>
     <p>Kode Produk: {{ $transaction->kode_produk }}</p>
+    <p>Nama Produk: {{ $transaction->produk->nama ?? '-' }}</p>
+    <p>Kategori Produk: {{ $transaction->produk->kategori->nama ?? 'Kategori Tidak Tersedia' }}</p>
     <p>Nama Pembeli: {{ $transaction->nama_user }}</p>
     <p>Status: {{ $transaction->status }}</p>
     <p>Tanggal Transaksi: {{ $transaction->created_at }}</p>
 
-    <!-- Menampilkan kategori -->
-    <p>Kategori Produk: {{ $transaction->produk->kategori->nama ?? 'Kategori Tidak Tersedia' }}</p>
 </body>
 </html>

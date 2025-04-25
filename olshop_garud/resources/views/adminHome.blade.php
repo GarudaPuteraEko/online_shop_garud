@@ -9,6 +9,7 @@
                 <div class="card-header bg-dark text-white border-bottom d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 fw-semibold">Dashboard Admin</h5>
                     <div class="d-flex gap-2">
+                        <a href="{{ route('kategori.index') }}" class="btn btn-sm btn-outline-light">Daftar Kategori</a>
                         <a href="{{ route('produk.create') }}" class="btn btn-sm btn-outline-primary">Tambah Produk</a>
                         <a href="{{ route('transaction.adminApproval') }}" class="btn btn-sm btn-outline-success">Lihat Approval Transaksi</a>
                     </div>

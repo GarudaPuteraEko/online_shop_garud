@@ -20,13 +20,18 @@ class KategoriController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input
         $request->validate([
             'nama' => 'required|string|max:100',
         ]);
 
+        // Menyimpan kategori baru
         Kategori::create($request->all());
+
+        // Redirect dengan pesan sukses
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan');
     }
+
 
     public function edit(Kategori $kategori)
     {
