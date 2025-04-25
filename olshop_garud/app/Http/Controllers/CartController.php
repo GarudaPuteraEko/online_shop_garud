@@ -64,31 +64,31 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
-    $cart = session('cart', []);
+        $cart = session('cart', []);
 
-    if (empty($cart)) {
-        return redirect()->back()->with('error', 'Keranjang kosong.');
-    }
-
-    foreach ($cart as $produkId => $item) {
-        $produk = Produk::find($produkId);
-
-        if ($produk) {
-            Transaction::create([
-                'user_id'     => Auth::id(),
-                'kode_produk' => $produk->kode_produk,
-                'nama_user'   => Auth::user()->name, // asumsi user punya field 'name'
-                'harga'       => $produk->harga,
-                'status'      => 'pending',
-            ]);
+        if (empty($cart)) {
+            return redirect()->back()->with('error', 'Keranjang kosong.');
         }
+
+        foreach ($cart as $produkId => $item) {
+            $produk = Produk::find($produkId);
+
+            if ($produk) {
+                Transaction::create([
+                    'user_id'     => Auth::id(),
+                    'produk_id'   => $produk->id, // Tambahkan produk_id di sini
+                    'kode_produk' => $produk->kode_produk,
+                    'nama_user'   => Auth::user()->name, // Asumsi user punya field 'name'
+                    'harga'       => $produk->harga,
+                    'status'      => 'pending',
+                ]);
+            }
+        }
+
+        // Hapus semua item di keranjang setelah checkout
+        session()->forget('cart');
+
+        return redirect()->route('transaction.approval')->with('success', 'Checkout berhasil. Menunggu persetujuan admin.');
     }
-
-    session()->forget('cart');
-
-    return redirect()->route('transaction.approval')->with('success', 'Checkout berhasil. Menunggu persetujuan admin.');
-    }
-
-
 
 }

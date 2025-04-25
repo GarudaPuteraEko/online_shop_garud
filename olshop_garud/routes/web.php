@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
@@ -51,3 +52,6 @@ Route::get('/transaction/{id}/download', [TransactionController::class, 'generat
 Route::get('/transaction/admin/approval', [TransactionController::class, 'adminApproval'])->name('transaction.adminApproval');
 Route::post('/transaction/{id}/approve', [TransactionController::class, 'approve'])->name('admin.transaction.approve');
 Route::post('/transaction/{id}/reject', [TransactionController::class, 'reject'])->name('admin.transaction.reject');
+
+// Kategori
+Route::resource('kategori', KategoriController::class);

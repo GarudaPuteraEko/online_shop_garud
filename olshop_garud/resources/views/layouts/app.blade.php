@@ -76,5 +76,8 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Tempat untuk scripts tambahan -->
+    @yield('scripts')  
 </body>
 </html>

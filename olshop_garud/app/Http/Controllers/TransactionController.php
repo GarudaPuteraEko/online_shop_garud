@@ -12,7 +12,7 @@ class TransactionController extends Controller
     // 🧍 Menampilkan halaman approval untuk User
     public function userApproval()
     {
-        $transactions = Transaction::where('user_id', Auth::id())->latest()->get();
+        $transactions = Transaction::with(['produk.kategori'])->where('user_id', Auth::id())->latest()->get(); // eager loading produk dan kategori
 
         if ($transactions->isEmpty()) {
             return redirect()->route('home')->with('error', 'Tidak ada transaksi ditemukan.');
@@ -20,6 +20,7 @@ class TransactionController extends Controller
 
         return view('transaction.approval', compact('transactions'));
     }
+
 
     public function cancel($id)
     {
@@ -39,7 +40,8 @@ class TransactionController extends Controller
     // 👨‍💼 Admin melihat semua transaksi
     public function adminApproval()
     {
-        $transactions = Transaction::with('user')->latest()->get();
+        $transactions = Transaction::with(['user', 'produk.kategori'])->latest()->get(); // eager loading produk dan kategori
+
         return view('transaction.adminApproval', compact('transactions'));
     }
 
@@ -76,14 +78,17 @@ class TransactionController extends Controller
     // 🧾 Generate PDF bukti transaksi
     public function generatePdf($id)
     {
-        $transaction = Transaction::find($id);
+        // Memuat transaksi beserta relasi produk dan kategori
+        $transaction = Transaction::with('produk.kategori')->find($id);
 
         if (!$transaction) {
             return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
         }
 
+        // Mengenerate PDF dengan view yang mencakup kategori
         $pdf = PDF::loadView('transaction.receipt', compact('transaction'));
 
         return $pdf->download('bukti-pembayaran-' . $transaction->id . '.pdf');
     }
+
 }
